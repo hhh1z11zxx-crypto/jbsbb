@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài Xỉu Cổ Điển - Lựa Chọn Nhà Cái</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #030318;
+            --primary-neon: #00ffaa; /* Xanh lá Neon */
+            --secondary-neon: #3a00ff; /* Tím xanh */
+            --glow-color: #00aaff;
+            --text-light: #e0e0f0;
+            --error-color: #ff416c;
+            --form-bg: rgba(5, 5, 30, 0.95);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            min-height: 100vh;
+            position: relative;
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+        
+        /* Hiệu ứng nền - Tăng cường cảm giác Tech */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(58, 0, 255, 0.05), rgba(0, 255, 170, 0.05));
+            opacity: 0.8;
+            z-index: -1;
+            /* Lưới nhẹ */
+            background-image: linear-gradient(0deg, transparent 95%, rgba(0, 255, 170, 0.1) 5%), linear-gradient(90deg, transparent 95%, rgba(0, 255, 170, 0.1) 5%);
+            background-size: 50px 50px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 25px 0;
+            background: rgba(0, 255, 170, 0.08);
+            border-bottom: 2px solid var(--primary-neon);
+            box-shadow: 0 4px 25px rgba(0, 255, 170, 0.3);
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: var(--primary-neon);
+            text-shadow: 0 0 10px rgba(0, 255, 170, 0.8);
+        }
+        
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-btn:hover {
+            background: var(--glow-color);
+            color: var(--dark-bg);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+        
+        .back-btn i {
+            margin-right: 8px;
+        }
+        
+        .container {
+            max-width: 1200px; /* Tăng max-width để chứa 3 cột */
+            margin: 0 auto;
+            padding: 0 20px;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .page-info {
+            text-align: center;
+            margin-bottom: 50px;
+            background: var(--form-bg);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 20px rgba(58, 0, 255, 0.3);
+        }
+        
+        .page-info h2 {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.7rem;
+            margin-bottom: 8px;
+            color: var(--glow-color);
+        }
+        
+        .page-info p {
+            color: #ccc;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .games-container {
+            display: grid;
+            /* Chia 3 cột trên desktop, 2 cột trên tablet, 1 cột trên mobile */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+            margin-bottom: 50px;
+            justify-content: center;
+        }
+        
+        .game-card {
+            background: rgba(5, 5, 30, 0.8); 
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            will-change: transform, box-shadow; 
+            box-shadow: 0 0 15px rgba(0, 255, 170, 0.1);
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 30px var(--primary-neon), 0 0 5px rgba(255, 255, 255, 0.5);
+            border-color: var(--primary-neon);
+        }
+        
+        .game-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 2px solid var(--secondary-neon);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .game-card:hover .game-image {
+            transform: scale(1.05);
+        }
+
+        .game-info {
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .game-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--primary-neon);
+            text-shadow: 0 0 5px rgba(0, 255, 170, 0.5);
+        }
+        
+        .play-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(90deg, var(--glow-color), var(--secondary-neon));
+            color: var(--dark-bg);
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.4);
+            text-transform: uppercase;
+        }
+        
+        .play-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px var(--glow-color);
+            filter: brightness(1.1);
+        }
+
+        .play-btn i {
+            margin-left: 8px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 992px) {
+             .games-container {
+                /* Tablet: 2 cột */
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .games-container {
+                /* Mobile: 1 cột */
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+                letter-spacing: 1px;
+            }
+            
+            .back-btn {
+                position: static;
+                transform: none;
+                margin: 0 auto 20px;
+                display: flex;
+                width: fit-content;
+            }
+            
+            .header {
+                padding: 15px 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Quay lại Trang Chủ</a>
+        <h1>TÀI XỈU CỔ ĐIỂN - TERMINAL</h1>
+    </div>
+    
+    <div class="container">
+        <div class="page-info">
+            <h2>LỰA CHỌN CỔNG KẾT NỐI (ACCESS POINT)</h2>
+            <p>Hệ thống đã phát hiện 6 điểm giao dịch khả dụng. Vui lòng chọn Nhà Cái bạn muốn tham gia.</p>
+        </div>
+        
+        <div class="games-container">
+            <div class="game-card">
+                <div class="game-image-wrapper">
+                    <img src="https://i.postimg.cc/y6wrZ8xx/IMG-7874.jpg" alt="Sunwin" class="game-image">
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">SUNWIN - CỔNG ĐÔNG Á</h3>
+                    <a href="toolsun.html" class="play-btn">Vào Terminal <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-image-wrapper">
+                    <img src="https://raw.githubusercontent.com/csgopravo/csgopravo.github.io/main/789-logo.png" alt="789 Club" class="game-image">
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">789 CLUB - CỔNG BẮC MỸ</h3>
+                    <a href="tool789.html" class="play-btn">Vào Terminal <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-image-wrapper">
+                    <img src="https://i.postimg.cc/50Rk21sY/go88-placeholder.jpg" alt="Go88" class="game-image">
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">GO88 - CỔNG CHÂU ÂU</h3>
+                    <a href="toolgo88.html" class="play-btn">Vào Terminal <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-image-wrapper">
+                    <img src="https://i.postimg.cc/RF03yF07/b52-placeholder.jpg" alt="B52" class="game-image">
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">B52 CLUB - CỔNG QUÂN SỰ</h3>
+                    <a href="toolb52.html" class="play-btn">Vào Terminal <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-image-wrapper">
+                    <img src="https://i.postimg.cc/PrF4hW2Q/rikvip-placeholder.jpg" alt="Rikvip" class="game-image">
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">RIKVIP - CỔNG MA CAO</h3>
+                    <a href="toolrikvip.html" class="play-btn">Vào Terminal <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-image-wrapper">
+                    <img src="https://i.postimg.cc/Qtx8N2wz/iwin-placeholder.jpg" alt="IWIN" class="game-image">
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">IWIN - CỔNG CHÂU Á</h3>
+                    <a href="tooliwin.html" class="play-btn">Vào Terminal <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Kiểm tra key truy cập
+        if (!localStorage.getItem('accessKey')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

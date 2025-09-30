@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP ACCESS - ĐĂNG NHẬP AI TERMINAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #030318;
+            --primary-neon: #00ffaa; /* Xanh lá Neon */
+            --secondary-neon: #3a00ff; /* Tím xanh */
+            --glow-color: #00aaff;
+            --text-light: #e0e0f0;
+            --error-color: #ff416c;
+            --border-color: rgba(0, 255, 170, 0.2);
+            --form-bg: rgba(5, 5, 30, 0.95);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        
+        /* Container cho Particles.js để tạo nền chuyển động */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .main-content {
+            width: 100%;
+            max-width: 500px;
+            z-index: 10;
+        }
+        
+        .login-container {
+            background: var(--form-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 255, 170, 0.2);
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
+            padding-bottom: 20px;
+        }
+        
+        .vip-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary-neon);
+            color: var(--dark-bg);
+            padding: 8px 15px;
+            font-weight: 700;
+            font-size: 14px;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%, 0 70%);
+            letter-spacing: 1px;
+        }
+        
+        .login-header {
+            background: rgba(0, 255, 170, 0.05);
+            padding: 30px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-neon);
+            position: relative;
+        }
+        
+        .login-header h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 28px;
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: var(--primary-neon);
+            text-shadow: 0 0 10px rgba(0, 255, 170, 0.8);
+        }
+        
+        .login-header p {
+            font-size: 14px;
+            opacity: 0.8;
+            font-family: 'Space Mono', monospace;
+        }
+        
+        .login-form {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        
+        .input-field input {
+            width: 100%;
+            padding: 18px 20px 18px 50px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease-out;
+            background-color: #0d0d2e;
+            color: var(--primary-neon);
+            font-family: 'Space Mono', monospace;
+        }
+        
+        .input-field input:focus {
+            border-color: var(--primary-neon);
+            outline: none;
+            background-color: #05051f;
+            box-shadow: 0 0 15px var(--primary-neon);
+        }
+        
+        .input-field i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--glow-color);
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .input-field input:focus + i {
+            color: var(--primary-neon);
+        }
+
+        /* Lời chào AI thứ 2 */
+        .ai-status-message {
+            text-align: center;
+            margin: -20px 0 20px;
+            font-size: 13px;
+            color: var(--text-light);
+            opacity: 0.7;
+            font-family: 'Space Mono', monospace;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, var(--primary-neon), var(--secondary-neon));
+            border: none;
+            border-radius: 6px;
+            color: var(--dark-bg);
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            letter-spacing: 1.5px;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0, 255, 170, 0.4);
+            overflow: hidden;
+            text-transform: uppercase;
+        }
+        
+        .submit-btn:hover {
+            box-shadow: 0 0 25px var(--primary-neon), 0 0 5px rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+        
+        .error-message {
+            color: var(--error-color);
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+            font-weight: 600;
+            animation: shake 0.5s;
+            font-family: 'Space Mono', monospace;
+            text-shadow: 0 0 5px rgba(255, 65, 108, 0.5);
+        }
+        
+        /* AI Assistant Section - Lời chào thứ 1 */
+        .ai-assistant-section {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 40px;
+            background: #0d0d2e;
+            border: 1px solid var(--primary-neon);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 170, 0.3);
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        .ai-assistant-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        
+        .ai-assistant-header i {
+            color: var(--primary-neon);
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .ai-assistant-header h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            color: var(--primary-neon);
+            text-shadow: 0 0 5px var(--primary-neon);
+        }
+        
+        .ai-message p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* Contact Admin Button */
+        .contact-admin {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px dashed var(--border-color);
+        }
+        
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(90deg, #0088cc, #00aced);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 136, 204, 0.5);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .telegram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px #0088cc;
+        }
+        
+        /* Modal Popup - Lời chào thứ 3 */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--form-bg);
+            margin: 15% auto; 
+            padding: 30px;
+            border: 1px solid var(--primary-neon);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 30px rgba(0, 255, 170, 0.5);
+            animation: modalOpen 0.5s ease-out;
+            position: relative;
+        }
+
+        .modal-content h4 {
+            color: var(--primary-neon);
+            font-family: 'Space Mono', monospace;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .modal-content p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .close-btn {
+            color: var(--text-light);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--error-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        @keyframes modalOpen {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 576px) {
+            .login-form {
+                padding: 30px 20px;
+            }
+            .login-header h1 {
+                font-size: 22px;
+            }
+            .modal-content {
+                margin: 25% auto;
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <div class="main-content">
+        <div class="login-container">
+            <div class="vip-badge">VIP TERMINAL</div>
+            
+            <div class="login-header">
+                <h1>HỆ THỐNG KẾT NỐI BẢO MẬT</h1>
+                <p>[ ACCESS KEY VERIFICATION ]</p>
+            </div>
+            
+            <div class="login-form">
+                <form id="keyForm">
+                    <div class="form-group">
+                        <label for="accessKey">MÃ TRUY CẬP SINH TRẮC (BIOMETRIC KEY)</label>
+                        <div class="input-field">
+                            <input type="password" id="accessKey" placeholder="Nhập mã xác thực đã được mã hóa" required>
+                            <i class="fas fa-fingerprint"></i>
+                        </div>
+                        <div id="errorMessage" class="error-message"></div>
+                    </div>
+                    
+                    <p class="ai-status-message">
+                        TRẠNG THÁI: Cổng truy cập [AP-01] đã kích hoạt. Vui lòng hoàn tất giao thức xác thực.
+                    </p>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-lock-open"></i> GỬI YÊU CẦU KẾT NỐI
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="ai-assistant-section">
+            <div class="ai-assistant-header">
+                <i class="fas fa-microchip"></i>
+                <h3>CENTRAL AI - CỐ VẤN ĐIỆN TỬ</h3>
+            </div>
+            <div class="ai-message">
+                <p>
+                    Chào mừng, chủ nhân. Tôi là Giao Thức Truy Cập của bạn. Hệ thống đang ở trạng thái bảo mật cấp độ 3. Vui lòng cung cấp mã sinh trắc cá nhân để mở khóa các cổng giao dịch. Mọi dữ liệu đều được mã hóa theo giao thức Quantum-Secure, đảm bảo tính tuyệt đối về bảo mật.
+                </p>
+            </div>
+            
+            <div class="contact-admin">
+                <p>Nếu gặp vấn đề về mã truy cập (ACCESS KEY ERROR)</p>
+                <a href="https://t.me/concac123" target="_blank" class="telegram-btn">
+                    <i class="fab fa-telegram"></i> HỖ TRỢ TRỰC TUYẾN
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div id="aiModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h4>THÔNG BÁO HỆ THỐNG (SYSTEM ALERT)</h4>
+            <p>
+                Tin nhắn ưu tiên. Danh tính của bạn đã được ghi nhận trong danh sách ủy quyền. Đây là một phiên làm việc mật. Vui lòng đảm bảo không có bất kỳ bên thứ ba nào đang theo dõi màn hình của bạn. Chế độ ẩn danh đã được kích hoạt thành công.
+            </p>
+            <button class="submit-btn" style="margin-top: 0; background: var(--secondary-neon);">ĐÃ HIỂU VÀ ĐỒNG Ý</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Cấu hình Particles.js để tạo hiệu ứng "vi rút nối nhau"
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80, // Số lượng hạt
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#00ffaa" // Màu Neon Xanh lá
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150, // Khoảng cách hạt nối nhau
+                    "color": "#3a00ff", // Màu của đường nối (Tím xanh)
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1.5, // Tốc độ di chuyển chậm rãi
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab" // Hiệu ứng kéo/túm khi di chuột
+                    },
+                    "onclick": {
+                        "enable": false,
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 200,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // --- Logic Form và Modal ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const keyForm = document.getElementById('keyForm');
+            const accessKeyInput = document.getElementById('accessKey');
+            const errorElement = document.getElementById('errorMessage');
+            const modal = document.getElementById('aiModal');
+            const closeModal = document.querySelector('.close-btn');
+            const modalSubmit = modal.querySelector('.submit-btn');
+            
+            // --- Hiển thị Popup (Lời chào thứ 3) ---
+            function showModal() {
+                modal.style.display = 'block';
+            }
+
+            // Chỉ hiển thị modal nếu chưa từng đăng nhập thành công
+            if (!localStorage.getItem('hasSeenModal')) {
+                 setTimeout(showModal, 1500); // Hiển thị sau 1.5 giây
+            }
+
+            // Đóng Modal
+            function hideModal() {
+                modal.style.display = 'none';
+                localStorage.setItem('hasSeenModal', 'true'); // Đánh dấu đã xem
+            }
+
+            closeModal.onclick = (e) => { e.preventDefault(); hideModal(); };
+            modalSubmit.onclick = hideModal;
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    hideModal();
+                }
+            }
+
+            // --- Xử lý Form Đăng nhập (Yêu cầu file check_key.php) ---
+            keyForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const key = accessKeyInput.value;
+                
+                errorElement.style.display = 'none';
+                accessKeyInput.style.borderColor = 'var(--border-color)';
+
+                // Giả lập Fetch API 
+                fetch('check_key.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'key=' + encodeURIComponent(key)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.valid) {
+                        // Thành công
+                        localStorage.setItem('accessKey', key);
+                        
+                        document.querySelector('.submit-btn').innerHTML = '<i class="fas fa-check-circle"></i> KẾT NỐI THÀNH CÔNG';
+                        document.querySelector('.submit-btn').style.background = 'linear-gradient(90deg, #4CAF50, #8BC34A)';
+                        document.querySelector('.submit-btn').style.boxShadow = '0 0 20px #4CAF50';
+                        
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 800);
+                    } else {
+                        // Thất bại
+                        errorElement.textContent = 'Mã truy cập không hợp lệ. Giao thức bảo mật bị vi phạm.';
+                        errorElement.style.display = 'block';
+                        
+                        // Hiệu ứng shake & màu đỏ
+                        accessKeyInput.style.borderColor = 'var(--error-color)';
+                        accessKeyInput.style.animation = 'shake 0.5s';
+                        
+                        setTimeout(() => {
+                            accessKeyInput.style.animation = '';
+                        }, 500);
+                    }
+                })
+                .catch(error => {
+                    console.error('Network Error:', error);
+                    errorElement.textContent = 'Lỗi kết nối mạng lưới. Vui lòng thử lại sau.';
+                    errorElement.style.display = 'block';
+                  });
+            });
+
+            // Tự động clear placeholder khi focus
+            accessKeyInput.addEventListener('focus', function() {
+                this.placeholder = '';
+            });
+            accessKeyInput.addEventListener('blur', function() {
+                this.placeholder = 'Nhập mã xác thực đã được mã hóa';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino VIP - Trang Chủ</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap');
+        
+        :root {
+            --primary: #8e2de2;
+            --secondary: #4a00e0;
+            --danger: #ff416c;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gold: #FFD700;
+            --silver: #C0C0C0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background: url('https://i.postimg.cc/T35VPGmh/2d5ab14f89532f6529fb2cf0f0cf4f3c.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            min-height: 100vh;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(26, 26, 46, 0.95));
+            z-index: -1;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.postimg.cc/T35VPGmh/2d5ab14f89532f6529fb2cf0f0cf4f3c.jpg') center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.8);
+            position: relative;
+            padding: 0 1rem;
+            line-height: 1.2;
+        }
+        
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            background: rgba(26, 26, 46, 0.85);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .welcome-message p {
+            margin-bottom: 0.75rem;
+            font-size: 1.15rem;
+            color: var(--light);
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        
+        .welcome-message p:first-child {
+            font-size: 1.3rem;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            place-items: center;
+        }
+        
+        .game-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            width: 100%;
+            max-width: 360px;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(142, 45, 226, 0.6);
+        }
+        
+        .game-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 2px solid rgba(142, 45, 226, 0.4);
+        }
+        
+        .game-info {
+            padding: 1.75rem;
+            text-align: center;
+        }
+        
+        .game-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+        
+        .game-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+        
+        .play-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.85rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 6px 20px rgba(142, 45, 226, 0.5);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            min-width: 180px;
+            height: 48px;
+        }
+        
+        .play-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .play-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(142, 45, 226, 0.7);
+        }
+        
+        .play-btn:hover::before {
+            left: 100%;
+        }
+        
+        .play-btn i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .logout-container {
+            text-align: center;
+            margin-top: 3rem;
+            padding-bottom: 3rem;
+        }
+        
+        .logout-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--danger), #ff4b2b);
+            color: white;
+            padding: 0.85rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 6px 20px rgba(255, 65, 108, 0.5);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            min-width: 180px;
+            height: 48px;
+        }
+        
+        .logout-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.7);
+        }
+        
+        .logout-btn i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .welcome-message {
+                padding: 1.5rem;
+            }
+            
+            .welcome-message p:first-child {
+                font-size: 1.2rem;
+            }
+            
+            .welcome-message p {
+                font-size: 1.05rem;
+            }
+            
+            .game-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 0 1.25rem;
+            }
+            
+            .game-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <h1>CASINO VIP - TRANG CHỦ</h1>
+    </div>
+    
+    <div class="container">
+        <div class="welcome-message">
+            <p>Chào mừng bạn đến với hệ thống trò chơi đẳng cấp</p>
+            <p>Vui lòng chọn thể loại trò chơi bạn muốn tham gia</p>
+        </div>
+        
+        <div class="games-container">
+            <div class="game-card">
+                <img src="https://i.postimg.cc/Jn4jGkLJ/images-1.jpg" alt="Tài Xỉu" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Tài Xỉu Cổ Điển</h3>
+                    <a href="regular.html" class="play-btn"><i class="fas fa-dice"></i> Chơi Ngay</a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <img src="https://i.postimg.cc/4NrvBy6k/images-2.jpg" alt="Tài Xỉu MD5" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Tài Xỉu MD5</h3>
+                    <a href="md5.html" class="play-btn"><i class="fas fa-lock"></i> Chơi Ngay</a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <img src="https://i.postimg.cc/c1fJJKnC/images.jpg" alt="Sicbo" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Sicbo Cao Cấp</h3>
+                    <a href="sicbo.html" class="play-btn"><i class="fas fa-gem"></i> Chơi Ngay</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logout-container">
+            <a href="logout.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a>
+        </div>
+    </div>
+
+    <script>
+        // Kiểm tra key truy cập
+        if (!localStorage.getItem('accessKey')) {
+            window.location.href = 'login.html';
+        }
+        
+        // Hiệu ứng khi di chuột vào thẻ game
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+                this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.5)';
+                this.style.borderColor = 'rgba(142, 45, 226, 0.6)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.35)';
+                this.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+            });
+        });
+    </script>
+</body>
+</html>
